@@ -2,7 +2,8 @@ import tensorflow as tf
 
 img_height = 35
 img_width = 35
-batch_size = 3
+batch_size_train = 5
+batch_size_test = 2
 
 my_train = tf.keras.preprocessing.image_dataset_from_directory(
     "dataset/",
@@ -10,7 +11,7 @@ my_train = tf.keras.preprocessing.image_dataset_from_directory(
     label_mode='int',
     class_names=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
     color_mode='grayscale',
-    batch_size=batch_size,
+    batch_size=batch_size_train,
     image_size=(img_height, img_width),
     shuffle=True,
     seed=123,
@@ -19,12 +20,12 @@ my_train = tf.keras.preprocessing.image_dataset_from_directory(
 )
 
 my_validation = tf.keras.preprocessing.image_dataset_from_directory(
-    "dataset/",
+    "dataset_test/",
     labels='inferred',
     label_mode='int',
     class_names=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
     color_mode='grayscale',
-    batch_size=batch_size,
+    batch_size=batch_size_test,
     image_size=(img_height, img_width),
     shuffle=True,
     seed=123,
@@ -41,10 +42,13 @@ model = tf.keras.models.Sequential([
 
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
+              metrics=['accuracy'],
+              )
 
 model.fit(my_train, epochs=10)
 
-if __name__ == '__main__':
-    print("Welcome")
+print("Evaluate: ")
+model.evaluate(my_validation, verbose=2)
+
+model.summary()
 
