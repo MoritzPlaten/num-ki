@@ -1,7 +1,7 @@
 import tensorflow as tf
 
-img_height = 20
-img_width = 20
+img_height = 35
+img_width = 35
 batch_size = 3
 
 my_train = tf.keras.preprocessing.image_dataset_from_directory(
@@ -43,7 +43,7 @@ model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-model.fit(my_train, epochs=5)
+model.fit(my_train, epochs=10)
 
 if __name__ == '__main__':
     print("Welcome")
