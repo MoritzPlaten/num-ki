@@ -19,8 +19,9 @@ def prepare_for_prediction(img_path):
 
 model = tf.keras.models.load_model('model.keras')
 
-img = prepare_for_prediction("examples/Example_3.png")
+img = prepare_for_prediction("examples/Example_2.png")
 input_value = tf.expand_dims(img, axis=0)
 
 predict_value = model.predict(input_value)
-print(predict_value)
+index = tf.argmax(predict_value, axis=-1)
+print(index)
