@@ -19,7 +19,7 @@ def prepare_for_prediction(img_path):
 
 model = tf.keras.models.load_model('model.keras')
 
-img = prepare_for_prediction("examples/Example_2.png")
+img = prepare_for_prediction("examples/Example_1.jpg")
 input_value = tf.expand_dims(img, axis=0)
 
 predict_value = model.predict(input_value)
